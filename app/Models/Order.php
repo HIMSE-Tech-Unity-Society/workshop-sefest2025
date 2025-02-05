@@ -11,10 +11,10 @@ class Order extends Model
     protected $guarded = ['order_id'];
 
     public function creator(){
-        return $this->hasOne(User::class, 'creator_id', 'user_id');
+        return $this->hasOne(User::class, 'user_id', 'creator_id');
     }
     public function buyer(){
-        return $this->hasOne(User::class, 'buyer_id', 'user_id');
+        return $this->hasOne(User::class, 'user_id', 'buyer_id');
     }
     public function product(){
         return $this->hasOne(Product::class, 'product_id', 'product_id');

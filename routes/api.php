@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::delete('product/{slug}', [ProductController::class, 'destroy']);
         Route::get('order/sales', [OrderController::class, 'getJualanAll']);
         Route::get('order/purchase', [OrderController::class, 'getPembelianAll']);
-        Route::get('order/sales/{order}', [OrderController::class, 'show']);
+        Route::get('order/{order}', [OrderController::class, 'show']);
         Route::put('order/approve/{order}', [OrderController::class, 'updatePaid']);
     });
 });

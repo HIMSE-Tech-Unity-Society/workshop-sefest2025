@@ -274,6 +274,185 @@ use Illuminate\Support\Facades\DB;
  *          )
  *     ),
  * )
+ *
+ * @OA\post(
+ *      path="/api/creator/product",
+ *      tags={"product"},
+ *      @OA\Parameter(
+ *          in="header",
+ *          name="Authorization",
+ *          required=true,
+ *          @OA\Schema(type="string"),
+ *          @OA\Examples(example="string", value="Bearer 1|Mkf3uIuT7EnM0QsiKcgyt1j9JuS5ZmKm9euElgcue781ff07", summary="string"),
+ *      ),
+ *      summary="create product",
+ *      description="Description",
+ *      @OA\RequestBody(
+ *         @OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(
+ *                 @OA\Property(
+ *                      type="object",
+ *                      @OA\Property(
+ *                          property="cover",
+ *                          type="binary"
+ *                      ),
+ *                      @OA\Property(
+ *                          property="product",
+ *                          type="string"
+ *                      ),
+ *                      @OA\Property(
+ *                          property="title",
+ *                          type="string"
+ *                      ),
+ *                      @OA\Property(
+ *                          property="category_id",
+ *                          type="number"
+ *                      ),
+ *                      @OA\Property(
+ *                          property="overview",
+ *                          type="string"
+ *                      ),
+ *                      @OA\Property(
+ *                          property="price",
+ *                          type="numeric"
+ *                      )
+ *                 ),
+ *                 example={
+ *                     "cover":"image.png",
+ *                     "product":"John",
+ *                     "title":"online course",
+ *                     "category_id":1,
+ *                     "overview":"a student and freelancer full-stack engineer from indonesia, specialized in web development",
+ *                     "price":"5000",
+ *                }
+ *             )
+ *         )
+ *      ),
+ *      @OA\Response(
+ *      response=200,
+ *      description="success",
+ *      @OA\JsonContent(
+ *      @OA\Property(property="message", type="string", example="product berhasil ditambahkan"),
+ *      @OA\Property(property="data", type="object",
+ *          @OA\Property(property="creator_id", type="number", example=2),
+ *          @OA\Property(property="category_id", type="number", example=1),
+ *          @OA\Property(property="overview", type="string", example="ini adalah sepatu sangat keren 2025"),
+ *          @OA\Property(property="title", type="string", example="sepatu"),
+ *          @OA\Property(property="slug", type="string", example="sepatu"),
+ *          @OA\Property(property="price", type="string", example="5000,00"),
+ *          @OA\Property(property="cover", type="string", example="sepatu.png"),
+ *          @OA\Property(property="product", type="string", example="https://drive.com"),
+ *          @OA\Property(property="updated_at", type="string", example="2025-02-03T15:34:45.000000Z"),
+ *          @OA\Property(property="created_at", type="string", example="2025-02-03T15:34:45.000000Z"),
+ *          @OA\Property(property="product_id", type="number", example=9)
+ *      )
+ *  )
+ * )
+ *     )
+ * * @OA\post(
+ *      path="/api/creator/product/{slug}",
+ *      tags={"product"},
+ *      @OA\Parameter(
+ *          in="header",
+ *          name="Authorization",
+ *          required=true,
+ *          @OA\Schema(type="string"),
+ *          @OA\Examples(example="string", value="Bearer 1|Mkf3uIuT7EnM0QsiKcgyt1j9JuS5ZmKm9euElgcue781ff07", summary="string"),
+ *      ),
+ *      @OA\Parameter(
+ *          in="path",
+ *          name="slug",
+ *          required=true,
+ *          @OA\Schema(type="string"),
+ *          @OA\Examples(example="string", value="online-course", summary="an string value"),
+ *      ),
+ *      summary="update product",
+ *      description="Description",
+ *      @OA\RequestBody(
+ *         @OA\MediaType(
+ *             mediaType="application/json",
+ *             @OA\Schema(
+ *                 @OA\Property(
+ *                      type="object",
+ *                      @OA\Property(
+ *                          property="cover",
+ *                          type="binary"
+ *                      ),
+ *                      @OA\Property(
+ *                          property="product",
+ *                          type="string"
+ *                      ),
+ *                      @OA\Property(
+ *                          property="title",
+ *                          type="string"
+ *                      ),
+ *                      @OA\Property(
+ *                          property="category_id",
+ *                          type="number"
+ *                      ),
+ *                      @OA\Property(
+ *                          property="overview",
+ *                          type="string"
+ *                      ),
+ *                      @OA\Property(
+ *                          property="price",
+ *                          type="numeric"
+ *                      )
+ *                 ),
+ *                 example={
+ *                     "cover":"image.png",
+ *                     "product":"John",
+ *                     "title":"online course",
+ *                     "category_id":1,
+ *                     "overview":"a student and freelancer full-stack engineer from indonesia, specialized in web development",
+ *                     "price":"5000",
+ *                }
+ *             )
+ *         )
+ *      ),
+ *      @OA\Response(
+ *      response=200,
+ *      description="success",
+ *      @OA\JsonContent(
+ *      @OA\Property(property="message", type="string", example="product berhasil dibuah"),
+ *      @OA\Property(property="data", type="object",
+ *          @OA\Property(property="creator_id", type="number", example=2),
+ *          @OA\Property(property="category_id", type="number", example=1),
+ *          @OA\Property(property="overview", type="string", example="ini adalah sepatu sangat keren 2025"),
+ *          @OA\Property(property="title", type="string", example="sepatu"),
+ *          @OA\Property(property="slug", type="string", example="sepatu"),
+ *          @OA\Property(property="price", type="string", example="5000,00"),
+ *          @OA\Property(property="cover", type="string", example="sepatu.png"),
+ *          @OA\Property(property="product", type="string", example="https://drive.com"),
+ *          @OA\Property(property="updated_at", type="string", example="2025-02-03T15:34:45.000000Z"),
+ *          @OA\Property(property="created_at", type="string", example="2025-02-03T15:34:45.000000Z"),
+ *          @OA\Property(property="product_id", type="number", example=9)
+ *      )
+ *  )
+ * )
+ *     )
+ *
+ * @OA\Delete(
+ *      path="/api/creator/product/{slug}",
+ *      tags={"product"},
+ *      summary="delete product",
+ *      @OA\Parameter(
+ *          in="path",
+ *          name="slug",
+ *          required=true,
+ *          @OA\Schema(type="string"),
+ *          @OA\Examples(example="string", value="online-course", summary="an string value"),
+ *      ),
+ *      @OA\Response(
+ *          response=200,
+ *          description="success",
+ *          @OA\JsonContent(
+ *                  @OA\Property(property="message", type="string", example="product sudah dihapus"),
+ *              ),
+ *          )
+ *       ),
+ *     )
  */
 
 
@@ -416,6 +595,7 @@ class ProductController extends Controller
         }
         $product->update($query);
         return response()->json([
+            "message" => "product berhasil diubah",
             "data" => $product,
         ], 200);
 
