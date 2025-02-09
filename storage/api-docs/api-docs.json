@@ -877,8 +877,8 @@
                     "Order"
                 ],
                 "summary": "Get details of a specific order",
-                "description": "Retrieve detailed information about a specific order, including product and creator details.",
-                "operationId": "getOrderById",
+                "description": "Retrieve detailed information about a specific order, including product, buyer, and creator details.",
+                "operationId": "getOrderDetails",
                 "parameters": [
                     {
                         "name": "order",
@@ -886,7 +886,8 @@
                         "description": "ID of the order to retrieve",
                         "required": true,
                         "schema": {
-                            "type": "integer"
+                            "type": "integer",
+                            "format": "int64"
                         }
                     }
                 ],
@@ -897,73 +898,134 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "order_id": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "creator_id": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "product_id": {
-                                            "type": "integer",
-                                            "example": 7
-                                        },
-                                        "buyer_id": {
-                                            "type": "integer",
-                                            "example": 2
-                                        },
-                                        "is_paid": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "proof": {
-                                            "type": "string",
-                                            "example": "ksiJX.png"
-                                        },
-                                        "total": {
-                                            "type": "string",
-                                            "example": "5000.00"
-                                        },
-                                        "created_at": {
-                                            "type": "string",
-                                            "format": "date-time",
-                                            "example": "2025-01-31T18:48:12.000000Z"
-                                        },
-                                        "updated_at": {
-                                            "type": "string",
-                                            "format": "date-time",
-                                            "example": "2025-01-31T20:03:28.000000Z"
-                                        },
-                                        "product": {
+                                        "data": {
                                             "properties": {
-                                                "product_id": {
+                                                "order_id": {
                                                     "type": "integer",
-                                                    "example": 7
-                                                },
-                                                "cover": {
-                                                    "type": "string",
-                                                    "example": "online-course-IylF1.png"
-                                                },
-                                                "title": {
-                                                    "type": "string",
-                                                    "example": "online course"
-                                                },
-                                                "slug": {
-                                                    "type": "string",
-                                                    "example": "online-course"
-                                                },
-                                                "overview": {
-                                                    "type": "string",
-                                                    "example": "ini adalah produk saya yang sudah di masukkan kedalam memek"
-                                                },
-                                                "price": {
-                                                    "type": "string",
-                                                    "example": "5000.00"
+                                                    "example": 3
                                                 },
                                                 "creator_id": {
                                                     "type": "integer",
                                                     "example": 1
+                                                },
+                                                "product_id": {
+                                                    "type": "integer",
+                                                    "example": 7
+                                                },
+                                                "buyer_id": {
+                                                    "type": "integer",
+                                                    "example": 2
+                                                },
+                                                "is_paid": {
+                                                    "type": "integer",
+                                                    "example": 0
+                                                },
+                                                "proof": {
+                                                    "type": "string",
+                                                    "example": "Zw1nS.png"
+                                                },
+                                                "total": {
+                                                    "type": "string",
+                                                    "example": "5000.00"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-02-03T07:29:02.000000Z"
+                                                },
+                                                "updated_at": {
+                                                    "type": "string",
+                                                    "format": "date-time",
+                                                    "example": "2025-02-03T07:45:07.000000Z"
+                                                },
+                                                "product": {
+                                                    "properties": {
+                                                        "product_id": {
+                                                            "type": "integer",
+                                                            "example": 7
+                                                        },
+                                                        "category_id": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "title": {
+                                                            "type": "string",
+                                                            "example": "online course"
+                                                        },
+                                                        "slug": {
+                                                            "type": "string",
+                                                            "example": "online-course"
+                                                        },
+                                                        "price": {
+                                                            "type": "string",
+                                                            "example": "5000.00"
+                                                        },
+                                                        "overview": {
+                                                            "type": "string",
+                                                            "example": "ini adalah produk saya yang sudah di masukkan kedalam memek"
+                                                        },
+                                                        "cover": {
+                                                            "type": "string",
+                                                            "example": "online-course-IylF1.png"
+                                                        },
+                                                        "creator_id": {
+                                                            "type": "integer",
+                                                            "example": 1
+                                                        },
+                                                        "product": {
+                                                            "type": "string",
+                                                            "example": null,
+                                                            "nullable": true
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "buyer": {
+                                                    "properties": {
+                                                        "user_id": {
+                                                            "type": "integer",
+                                                            "example": 2
+                                                        },
+                                                        "name": {
+                                                            "type": "string",
+                                                            "example": "arasy"
+                                                        },
+                                                        "email": {
+                                                            "type": "string",
+                                                            "example": "arasy@sefest.com"
+                                                        },
+                                                        "avatar": {
+                                                            "type": "string",
+                                                            "example": "avatar/CJwq64Ayb6Wi57DziWQ2flLoDTQRI3rgD0wstAMi.png"
+                                                        },
+                                                        "job": {
+                                                            "type": "string",
+                                                            "example": "software engineer at pt kharisma indah"
+                                                        },
+                                                        "bank_name": {
+                                                            "type": "string",
+                                                            "example": "bca"
+                                                        },
+                                                        "account_number": {
+                                                            "type": "string",
+                                                            "example": "129801209912"
+                                                        },
+                                                        "account_owner_name": {
+                                                            "type": "string",
+                                                            "example": "arasy"
+                                                        },
+                                                        "created_at": {
+                                                            "type": "string",
+                                                            "format": "date-time",
+                                                            "example": "2025-01-31T18:44:47.000000Z"
+                                                        },
+                                                        "updated_at": {
+                                                            "type": "string",
+                                                            "format": "date-time",
+                                                            "example": "2025-01-31T18:44:47.000000Z"
+                                                        }
+                                                    },
+                                                    "type": "object"
                                                 },
                                                 "creator": {
                                                     "properties": {
@@ -1029,7 +1091,7 @@
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "Order not found"
+                                            "example": "Order tidak ditemukan"
                                         }
                                     },
                                     "type": "object"

@@ -306,6 +306,97 @@ use Illuminate\Support\Str;
  *       ),
  *     )
  *
+ * @OA\Get(
+ *     path="/api/creator/order/{order}",
+ *     tags={"Order"},
+ *     summary="Get details of a specific order",
+ *     description="Retrieve detailed information about a specific order, including product, buyer, and creator details.",
+ *     operationId="getOrderDetails",
+ *     @OA\Parameter(
+ *         name="order",
+ *         in="path",
+ *         description="ID of the order to retrieve",
+ *         required=true,
+ *         @OA\Schema(
+ *             type="integer",
+ *             format="int64"
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Successful operation",
+ *         @OA\JsonContent(
+ *             @OA\Property(
+ *                 property="data",
+ *                 type="object",
+ *                 @OA\Property(property="order_id", type="integer", example=3),
+ *                 @OA\Property(property="creator_id", type="integer", example=1),
+ *                 @OA\Property(property="product_id", type="integer", example=7),
+ *                 @OA\Property(property="buyer_id", type="integer", example=2),
+ *                 @OA\Property(property="is_paid", type="integer", example=0),
+ *                 @OA\Property(property="proof", type="string", example="Zw1nS.png"),
+ *                 @OA\Property(property="total", type="string", example="5000.00"),
+ *                 @OA\Property(property="created_at", type="string", format="date-time", example="2025-02-03T07:29:02.000000Z"),
+ *                 @OA\Property(property="updated_at", type="string", format="date-time", example="2025-02-03T07:45:07.000000Z"),
+ *                 @OA\Property(
+ *                     property="product",
+ *                     type="object",
+ *                     @OA\Property(property="product_id", type="integer", example=7),
+ *                     @OA\Property(property="category_id", type="integer", example=1),
+ *                     @OA\Property(property="title", type="string", example="online course"),
+ *                     @OA\Property(property="slug", type="string", example="online-course"),
+ *                     @OA\Property(property="price", type="string", example="5000.00"),
+ *                     @OA\Property(property="overview", type="string", example="ini adalah produk saya yang sudah di masukkan kedalam memek"),
+ *                     @OA\Property(property="cover", type="string", example="online-course-IylF1.png"),
+ *                     @OA\Property(property="creator_id", type="integer", example=1),
+ *                     @OA\Property(property="product", type="string", nullable=true, example=null)
+ *                 ),
+ *                 @OA\Property(
+ *                     property="buyer",
+ *                     type="object",
+ *                     @OA\Property(property="user_id", type="integer", example=2),
+ *                     @OA\Property(property="name", type="string", example="arasy"),
+ *                     @OA\Property(property="email", type="string", example="arasy@sefest.com"),
+ *                     @OA\Property(property="avatar", type="string", example="avatar/CJwq64Ayb6Wi57DziWQ2flLoDTQRI3rgD0wstAMi.png"),
+ *                     @OA\Property(property="job", type="string", example="software engineer at pt kharisma indah"),
+ *                     @OA\Property(property="bank_name", type="string", example="bca"),
+ *                     @OA\Property(property="account_number", type="string", example="129801209912"),
+ *                     @OA\Property(property="account_owner_name", type="string", example="arasy"),
+ *                     @OA\Property(property="created_at", type="string", format="date-time", example="2025-01-31T18:44:47.000000Z"),
+ *                     @OA\Property(property="updated_at", type="string", format="date-time", example="2025-01-31T18:44:47.000000Z")
+ *                 ),
+ *                 @OA\Property(
+ *                     property="creator",
+ *                     type="object",
+ *                     @OA\Property(property="user_id", type="integer", example=1),
+ *                     @OA\Property(property="name", type="string", example="Raihan siyun"),
+ *                     @OA\Property(property="email", type="string", example="rsiyun@sefest.com"),
+ *                     @OA\Property(property="avatar", type="string", example="avatar/TWrfdcbkNVSRLLhdhwZqojaKjG1ysQfQpIRxm6Th.png"),
+ *                     @OA\Property(property="job", type="string", example="software engineer at pt kharisma indah"),
+ *                     @OA\Property(property="bank_name", type="string", example="bca"),
+ *                     @OA\Property(property="account_number", type="string", example="129801209912"),
+ *                     @OA\Property(property="account_owner_name", type="string", example="Raihan Siyun"),
+ *                     @OA\Property(property="created_at", type="string", format="date-time", example="2025-01-29T13:44:30.000000Z"),
+ *                     @OA\Property(property="updated_at", type="string", format="date-time", example="2025-01-29T13:44:30.000000Z")
+ *                 )
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Order not found",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Order tidak ditemukan")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=500,
+ *         description="Internal Server Error",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Internal Server Error")
+ *         )
+ *     )
+ * )
  */
 
 
@@ -351,6 +442,11 @@ class OrderController extends Controller
         ]);
 
         $filename = Str::random(5) . '.' . $request->proof->extension();
+        if($request->creator_id == Auth::user()->user_id){
+            return response()->json([
+                "message" => "Tidak boleh membeli barang sendiri"
+            ],401);
+        }
         $request->proof->storeAs('proof', $filename, 'public');
         Order::create([
             "creator_id" => $request->creator_id,
